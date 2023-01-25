@@ -1,47 +1,69 @@
-// Type JavaScript here and click "Run Code" or press Ctrl + s
 console.log('Hello, world!');
 
 
 // Challenge 1
 function addTwo(num) {
 
+  return num+2
 }
 
 // To check if you've completed it, uncomment these console.logs!
-// console.log(addTwo(3));
-// console.log(addTwo(10));
+console.log(addTwo(3));
+console.log(addTwo(10));
 
 
 // Challenge 2
 function addS(word) {
-
+  return `${word}s`
 }
 
 // uncomment these to check your work
-// console.log(addS('pizza'));
-// console.log(addS('bagel'));
+console.log(addS('pizza'));
+console.log(addS('bagel'));
 
 
 // Challenge 3
 function map(array, callback) {
 
+  const newArray = []
+
+  for(let i=0; i<array.length; i++) {
+    newArray.push(callback(array[i]));
+  }
+
+  return newArray
 }
 
-// console.log(map([1, 2, 3], addTwo));
+console.log(map([1, 2, 3], addTwo));
 
 
 // Challenge 4
 function forEach(array, callback) {
 
+  const newArray = []
+
+  for(let i=0; i<array.length; i++) {
+    newArray.push(callback(array[i]));
+  }
+
+  console.log(newArray)
 }
 
 // see for yourself if your forEach works!
-
+forEach([1, 2, 3], addTwo)
 
 // Challenge 5
 function mapWith(array, callback) {
 
+  const newArray = []
+
+  array.forEach(item => newArray.push(callback(item)))
+
+  return newArray;
+
 }
+
+console.log(mapWith([1, 2, 3], addTwo));
 
 
 // Challenge 6
@@ -232,15 +254,15 @@ function combineOperations(startVal, arrOfFuncs) {
 }
 
 function add100(num) {
-    return num + 100;
+  return num + 100;
 }
 
 function divByFive(num) {
-    return num / 5;
+  return num / 5;
 }
 
 function multiplyByThree(num) {
-    return num * 3;
+  return num * 3;
 }
 
 // /*** Uncomment these to check your work! ***/
@@ -257,7 +279,7 @@ const numbers = [2, 3, 6, 64, 10, 8, 12];
 const evens = [2, 4, 6, 8, 10, 12, 64];
 
 function isOdd(num) {
-    return (num % 2 !== 0);
+  return (num % 2 !== 0);
 }
 
 // /*** Uncomment these to check your work! ***/
@@ -273,7 +295,7 @@ function myForEach(array, callback) {
 let sum = 0;
 
 function addToSum(num) {
-    sum += num;
+  sum += num;
 }
 
 // /*** Uncomment these to check your work! ***/
