@@ -86,66 +86,76 @@ function intersection(arrays) {
 
 // Challenge 8
 function union(arrays) {
-
+  return arrays.reduce((acc, cur) => {
+    const newItems = cur.filter(el => !acc.includes(el));
+    return acc.concat(newItems);
+  }, []);
 }
 
-// console.log(union([[5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]]));
+//console.log('-> Challenge 8 ', union([[5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]]));
 // should log: [5, 10, 15, 88, 1, 7, 100]
 
 // Challenge 9
 function objOfMatches(array1, array2, callback) {
-
+  const newObj = {}
+  array1.map((el1)=> array2.map((el2)=> {
+    if(callback(el1) === el2) newObj[el1] = el2
+  }) )
+  return newObj
 }
 
-// console.log(objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy', 'BYE', 'LATER', 'hello'], function(str) { return str.toUpperCase(); }));
+// function matchesCb(str) { return str.toUpperCase(); }
+//console.log('-> Challenge 9 ', objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy', 'BYE', 'LATER', 'hello'], matchesCb));
 // should log: { hi: 'HI', bye: 'BYE', later: 'LATER' }
 
 // Challenge 10
 function multiMap(arrVals, arrCallbacks) {
-
+  const newObj = {}
+  arrVals.map((elVal)=> newObj[elVal] = arrCallbacks.map((elCb)=> elCb(elVal)))
+  return newObj
 }
 
-// console.log(multiMap(['catfood', 'glue', 'beer'], [function(str) { return str.toUpperCase(); }, function(str) { return str[0].toUpperCase() + str.slice(1).toLowerCase(); }, function(str) { return str + str; }]));
+// console.log('-> Challenge 10 ', multiMap(['catfood', 'glue', 'beer'], [function(str) { return str.toUpperCase(); }, function(str) { return str[0].toUpperCase() + str.slice(1).toLowerCase(); }, function(str) { return str + str; }]));
 // should log: { catfood: ['CATFOOD', 'Catfood', 'catfoodcatfood'], glue: ['GLUE', 'Glue', 'glueglue'], beer: ['BEER', 'Beer', 'beerbeer'] }
 
 // Challenge 11
 function objectFilter(obj, callback) {
 
+  const newObj = {}
+  Object.entries(obj).map(([key, val])=> {
+    if(val === callback(key)) newObj[key] = val
+  } )
+  return newObj
 }
 
-// const cities = {
-// London: 'LONDON',
-// LA: 'Los Angeles',
-// Paris: 'PARIS',
-// };
-// console.log(objectFilter(cities, city => city.toUpperCase())) // Should log { London: 'LONDON', Paris: 'PARIS'}
+//const cities = { London: 'LONDON', LA: 'Los Angeles', Paris: 'PARIS'};
+//console.log('-> Challenge 11 ', objectFilter(cities, city => city.toUpperCase()))
+// Should log { London: 'LONDON', Paris: 'PARIS'}
 
 // Challenge 12
 function majority(array, callback) {
-
+  return array.map(el=> callback(el)).filter(el=> !!el).length > Math.floor(array.length / 2)
 }
 
-// /*** Uncomment these to check your work! ***/
-// const isOdd = function(num) { return num % 2 === 1; };
-// console.log(majority([1, 2, 3, 4, 5], isOdd)); // should log: true
-// console.log(majority([2, 3, 4, 5], isOdd)); // should log: false
+// const isArrayOdd = function(num) { return num % 2 === 1; };
+// console.log('-> Challenge 12 ', majority([1, 2, 3, 4, 5], isArrayOdd)); // should log: true
+// console.log('-> Challenge 12 ', majority([2, 3, 4, 5], isArrayOdd)); // should log: false
 
 // Challenge 13
 function prioritize(array, callback) {
 
+  return array.filter(el=> callback(el)).concat(array.filter(el=> !callback(el)))
+
 }
 
-// /*** Uncomment these to check your work! ***/
 // const startsWithS = function(str) { return str[0] === 's' || str[0] === 'S'; };
-// console.log(prioritize(['curb', 'rickandmorty', 'seinfeld', 'sunny', 'friends'], startsWithS)); // should log:
-['seinfeld', 'sunny', 'curb', 'rickandmorty', 'friends']
+// console.log('-> Challenge 13 ', prioritize( ['curb', 'rickandmorty', 'seinfeld', 'sunny', 'friends'], startsWithS)); // should log: ['seinfeld', 'sunny', 'curb', 'rickandmorty', 'friends']
 
 // Challenge 14
 function countBy(array, callback) {
 
 }
 
-// /*** Uncomment these to check your work! ***/
 // console.log(countBy([1, 2, 3, 4, 5], function(num) {
 // if (num % 2 === 0) return 'even';
 // else return 'odd';
@@ -156,7 +166,6 @@ function groupBy(array, callback) {
 
 }
 
-// /*** Uncomment these to check your work! ***/
 // const decimals = [1.3, 2.1, 2.4];
 // const floored = function(num) { return Math.floor(num); };
 // console.log(groupBy(decimals, floored)); // should log: { 1: [1.3], 2: [2.1, 2.4] }
@@ -166,7 +175,6 @@ function goodKeys(obj, callback) {
 
 }
 
-// /*** Uncomment these to check your work! ***/
 // const sunny = { mac: 'priest', dennis: 'calculating', charlie: 'birdlaw', dee: 'bird', frank: 'warthog' };
 // const startsWithBird = function(str) { return str.slice(0, 4).toLowerCase() === 'bird'; };
 // console.log(goodKeys(sunny, startsWithBird)); // should log: ['charlie', 'dee']
@@ -176,7 +184,6 @@ function commutative(func1, func2, value) {
 
 }
 
-// /*** Uncomment these to check your work! ***/
 // const multBy3 = n => n * 3;
 // const divBy4 = n => n / 4;
 // const subtract5 = n => n - 5;
@@ -189,7 +196,6 @@ function objFilter(obj, callback) {
 
 }
 
-// /*** Uncomment these to check your work! ***/
 // const startingObj = {};
 // startingObj[6] = 3;
 // startingObj[2] = 1;
@@ -202,7 +208,6 @@ function rating(arrOfFuncs, value) {
 
 }
 
-// /*** Uncomment these to check your work! ***/
 // const isEven = n => n % 2 === 0;
 // const greaterThanFour = n => n > 4;
 // const isSquare = n => Math.sqrt(n) % 1 === 0;
@@ -216,7 +221,6 @@ function pipe(arrOfFuncs, value) {
 
 }
 
-// /*** Uncomment these to check your work! ***/
 // const capitalize = str => str.toUpperCase();
 // const addLowerCase = str => str + str.toLowerCase();
 // const repeat = str => str + str;
@@ -228,7 +232,6 @@ function highestFunc(objOfFuncs, subject) {
 
 }
 
-// /*** Uncomment these to check your work! ***/
 // const groupOfFuncs = {};
 // groupOfFuncs.double = n => n * 2;
 // groupOfFuncs.addTen = n => n + 10;
@@ -254,7 +257,6 @@ function multiplyByThree(num) {
   return num * 3;
 }
 
-// /*** Uncomment these to check your work! ***/
 // console.log(combineOperations(0, [add100, divByFive, multiplyByThree])); // Should output 60 -->
 // console.log(combineOperations(0, [divByFive, multiplyFive, addTen])); // Should output 10
 
@@ -270,7 +272,6 @@ function isOdd(num) {
   return (num % 2 !== 0);
 }
 
-// /*** Uncomment these to check your work! ***/
 // console.log(myFunc(numbers, isOdd)); // Output should be 1
 // console.log(myFunc(evens, isOdd)); // Output should be -1
 
@@ -285,7 +286,6 @@ function addToSum(num) {
   sum += num;
 }
 
-// /*** Uncomment these to check your work! ***/
 // const nums = [1, 2, 3];
 // myForEach(nums, addToSum);
 // console.log(sum); // Should output 6
