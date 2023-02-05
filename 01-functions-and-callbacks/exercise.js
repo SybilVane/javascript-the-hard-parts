@@ -153,47 +153,67 @@ function prioritize(array, callback) {
 
 // Challenge 14
 function countBy(array, callback) {
-
+  const countObj = {}
+  array.map(el=> {
+    const elReturnedByCb = callback(el)
+    countObj.hasOwnProperty(elReturnedByCb) ? countObj[elReturnedByCb] += 1 : countObj[elReturnedByCb] = 1
+  })
+  return countObj
 }
 
-// console.log(countBy([1, 2, 3, 4, 5], function(num) {
+// console.log('-> Challenge 14 ', countBy([1, 2, 3, 4, 5], function(num) {
 // if (num % 2 === 0) return 'even';
 // else return 'odd';
-// })); // should log: { odd: 3, even: 2 }
+// }));
+// should log: { odd: 3, even: 2 }
 
 // Challenge 15
 function groupBy(array, callback) {
-
+  const groupingObj = {}
+  array.map(el=> {
+    const elReturnedByCb = callback(el)
+    groupingObj.hasOwnProperty(elReturnedByCb) ? groupingObj[elReturnedByCb].push(el) : groupingObj[elReturnedByCb] = [el]
+  })
+  return groupingObj
 }
 
 // const decimals = [1.3, 2.1, 2.4];
 // const floored = function(num) { return Math.floor(num); };
-// console.log(groupBy(decimals, floored)); // should log: { 1: [1.3], 2: [2.1, 2.4] }
+// console.log('-> Challenge 15 ', groupBy(decimals, floored)); // should log: { 1: [1.3], 2: [2.1, 2.4] }
 
 // Challenge 16
 function goodKeys(obj, callback) {
-
+  const goodArray = []
+  Object.entries(obj).map(([key, value]) => {
+    if (callback(value)) goodArray.push(key)
+  })
+  return goodArray
 }
 
-// const sunny = { mac: 'priest', dennis: 'calculating', charlie: 'birdlaw', dee: 'bird', frank: 'warthog' };
-// const startsWithBird = function(str) { return str.slice(0, 4).toLowerCase() === 'bird'; };
-// console.log(goodKeys(sunny, startsWithBird)); // should log: ['charlie', 'dee']
+ // const sunny = { mac: 'priest', dennis: 'calculating', charlie: 'birdlaw', dee: 'bird', frank: 'warthog' };
+ // const startsWithBird = function(str) { return str.slice(0, 4).toLowerCase() === 'bird'; };
+ // console.log('-> Challenge 16 ', goodKeys(sunny, startsWithBird)); // should log: ['charlie', 'dee']
 
 // Challenge 17
 function commutative(func1, func2, value) {
-
+ return func2(func1(value)) === func1(func2(value))
 }
 
 // const multBy3 = n => n * 3;
 // const divBy4 = n => n / 4;
 // const subtract5 = n => n - 5;
-// console.log(commutative(multBy3, divBy4, 11)); // should log: true
-// console.log(commutative(multBy3, subtract5, 10)); // should log: false
-// console.log(commutative(divBy4, subtract5, 48)); // should log: false
+// console.log('-> Challenge 17 ', commutative(multBy3, divBy4, 11)); // should log: true
+// console.log('-> Challenge 17 ', commutative(multBy3, subtract5, 10)); // should log: false
+// console.log('-> Challenge 17 ', commutative(divBy4, subtract5, 48)); // should log: false
 
 // Challenge 18
 function objFilter(obj, callback) {
 
+  const newObj = {}
+  Object.entries(obj).map(([key, value])=> {
+    if (value === callback(key)) newObj[key] = value
+  })
+  return newObj
 }
 
 // const startingObj = {};
@@ -201,11 +221,17 @@ function objFilter(obj, callback) {
 // startingObj[2] = 1;
 // startingObj[12] = 4;
 // const half = n => n / 2;
-// console.log(objFilter(startingObj, half)); // should log: { 2: 1, 6: 3 }
+// console.log('-> Challenge 18 ', objFilter(startingObj, half)); // should log: { 2: 1, 6: 3 }
 
 // Challenge 19
 function rating(arrOfFuncs, value) {
+  let numberOfTrue = 0
 
+  arrOfFuncs.map(func=> {
+    if (func(value)) numberOfTrue += 1
+  })
+
+  return numberOfTrue * 100 / 4
 }
 
 // const isEven = n => n % 2 === 0;
@@ -213,56 +239,72 @@ function rating(arrOfFuncs, value) {
 // const isSquare = n => Math.sqrt(n) % 1 === 0;
 // const hasSix = n => n.toString().includes('6');
 // const checks = [isEven, greaterThanFour, isSquare, hasSix];
-// console.log(rating(checks, 64)); // should log: 100
-// console.log(rating(checks, 66)); // should log: 75
+// console.log('-> Challenge 19 ', rating(checks, 64)); // should log: 100
+// console.log('-> Challenge 19 ', rating(checks, 66)); // should log: 75
 
 // Challenge 20
 function pipe(arrOfFuncs, value) {
-
+  return arrOfFuncs.reduce((acc, func) => func(acc), value);
 }
 
 // const capitalize = str => str.toUpperCase();
 // const addLowerCase = str => str + str.toLowerCase();
 // const repeat = str => str + str;
 // const capAddlowRepeat = [capitalize, addLowerCase, repeat];
-// console.log(pipe(capAddlowRepeat, 'cat')); // should log: 'CATcatCATcat'
+// console.log('-> Challenge 20 ', pipe(capAddlowRepeat, 'cat')); // should log: 'CATcatCATcat'
 
 // Challenge 21
 function highestFunc(objOfFuncs, subject) {
-
+  const arrayOfResults = Object.entries(objOfFuncs).map(([key,value])=> [key, value(subject)])
+  const newObj = {}
+  arrayOfResults.forEach(el=> newObj[el[0]] = el[1])
+  const highestResult = Object.values(newObj).reduce((acc,cur)=> acc > cur ? acc : cur)
+  const highestKeyValueArray = Object.entries(newObj).filter(([key, value])=> {
+    if (value === highestResult) return key
+  })
+  return highestKeyValueArray[0][0]
 }
 
-// const groupOfFuncs = {};
-// groupOfFuncs.double = n => n * 2;
-// groupOfFuncs.addTen = n => n + 10;
-// groupOfFuncs.inverse = n => n * -1;
-// console.log(highestFunc(groupOfFuncs, 5)); // should log: 'addTen'
-// console.log(highestFunc(groupOfFuncs, 11)); // should log: 'double'
-// console.log(highestFunc(groupOfFuncs, -20)); // should log: 'inverse'
+ // const groupOfFuncs = {};
+ // groupOfFuncs.double = n => n * 2;
+ // groupOfFuncs.addTen = n => n + 10;
+ // groupOfFuncs.inverse = n => n * -1;
+ // console.log('-> Challenge 21 ', highestFunc(groupOfFuncs, 5)); // should log: 'addTen'
+ // console.log('-> Challenge 21 ', highestFunc(groupOfFuncs, 11)); //  should log: 'double'
+ // console.log('-> Challenge 21 ', highestFunc(groupOfFuncs, -20)); // should log: 'inverse'
 
 // Challenge 22
 function combineOperations(startVal, arrOfFuncs) {
-
+  return arrOfFuncs.reduce((acc, func) => func(acc), startVal);
 }
 
 function add100(num) {
   return num + 100;
 }
-
+function addTen(num) {
+  return num + 10;
+}
 function divByFive(num) {
   return num / 5;
 }
-
 function multiplyByThree(num) {
   return num * 3;
 }
+function multiplyByFive(num) {
+  return num * 5;
+}
 
-// console.log(combineOperations(0, [add100, divByFive, multiplyByThree])); // Should output 60 -->
-// console.log(combineOperations(0, [divByFive, multiplyFive, addTen])); // Should output 10
+// console.log('-> Challenge 22 ', combineOperations(0, [add100, divByFive, multiplyByThree])); // Should output 60 -->
+// console.log('-> Challenge 22 ', combineOperations(0, [divByFive, multiplyByFive, addTen])); // Should output 10
 
 // Challenge 23
 function myFunc(array, callback) {
-
+  for (let i = 0; i < array.length; i++) {
+    if (callback(array[i])) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 const numbers = [2, 3, 6, 64, 10, 8, 12];
@@ -272,11 +314,15 @@ function isOdd(num) {
   return (num % 2 !== 0);
 }
 
-// console.log(myFunc(numbers, isOdd)); // Output should be 1
-// console.log(myFunc(evens, isOdd)); // Output should be -1
+// console.log('-> Challenge 23 ', myFunc(numbers, isOdd)); // Output should be 1
+// console.log('-> Challenge 23 ', myFunc(evens, isOdd)); // Output should be -1
 
 // Challenge 24
 function myForEach(array, callback) {
+
+  for(let i = 0; i<array.length; i++) {
+    callback(array[i])
+  }
 
 }
 
@@ -286,6 +332,6 @@ function addToSum(num) {
   sum += num;
 }
 
-// const nums = [1, 2, 3];
-// myForEach(nums, addToSum);
-// console.log(sum); // Should output 6
+ // const nums = [1, 2, 3];
+ // myForEach(nums, addToSum);
+ // console.log('-> Challenge 24 ', sum); // Should output 6
