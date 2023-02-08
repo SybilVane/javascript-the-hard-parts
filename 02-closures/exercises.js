@@ -1,6 +1,10 @@
 // CHALLENGE 1
 function createFunction() {
 
+  function sayHello() {
+    console.log('hello')
+  }
+  return sayHello;
 }
 
 // /*** Uncomment these to check your work! ***/
