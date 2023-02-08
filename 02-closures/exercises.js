@@ -1,10 +1,6 @@
 // CHALLENGE 1
 function createFunction() {
-
-  function sayHello() {
-    console.log('hello')
-  }
-  return sayHello;
+  return () => console.log('hello')
 }
 
 // /*** Uncomment these to check your work! ***/
@@ -14,7 +10,7 @@ function createFunction() {
 
 // CHALLENGE 2
 function createFunctionPrinter(input) {
-
+  return () => console.log(input)
 }
 
 // /*** Uncomment these to check your work! ***/
@@ -27,18 +23,17 @@ function createFunctionPrinter(input) {
 // CHALLENGE 3
 function outer() {
   let counter = 0; // this variable is outside incrementCounter's scope
-  function incrementCounter () {
+  return () => {
     counter ++;
     console.log('counter', counter);
   }
-  return incrementCounter;
 }
 
 const willCounter = outer();
 const jasCounter = outer();
 
 // Uncomment each of these lines one by one.
-// Before your do, guess what will be logged from each function call.
+// Before your do, guess what will be logged from each function call. //1,2,3,1,4
 
 // /*** Uncomment these to check your work! ***/
 // willCounter();
@@ -50,44 +45,63 @@ const jasCounter = outer();
 
 
 function addByX(x) {
-
+  return (num) => {
+    return num + x;
+  }
 }
 
 // /*** Uncomment these to check your work! ***/
-// const addByTwo = addByX(2);
-// addByTwo(1); // => should return 3
-// addByTwo(2); // => should return 4
-// addByTwo(3); // => should return 5
+ const addByTwo = addByX(2);
+ // console.log(addByTwo(1)); // => should return 3
+ // console.log(addByTwo(2)); // => should return 4
+ // console.log(addByTwo(3)); // => should return 5
 
-// const addByThree = addByX(3);
-// addByThree(1); // => should return 4
-// addByThree(2); // => should return 5
+ const addByThree = addByX(3);
+ // console.log(addByThree(1)); // => should return 4
+ // console.log(addByThree(2)); // => should return 5
 
-// const addByFour = addByX(4);
-// addByFour(4); // => should return 8
-// addByFour(5); // => should return 9
+ const addByFour = addByX(4);
+ // console.log(addByFour(4)); // => should return 8
+ // console.log(addByFour(5)); // => should return 9
 
 
 // CHALLENGE 4
 function once(func) {
 
+ let firstTime = true;
+ let firstReturnVal
+
+  return (input) => {
+   if (firstTime) firstReturnVal = func(input)
+    firstTime = false
+
+    return firstReturnVal
+  }
 }
 
 // /*** Uncomment these to check your work! ***/
-// const onceFunc = once(addByTwo);
-// console.log(onceFunc(4));  // => should log 6
-// console.log(onceFunc(10));  // => should log 6
-// console.log(onceFunc(9001));  // => should log 6
+  const onceFunc = once(addByTwo);
+  // console.log(onceFunc(4));  // => should log 6
+  // console.log(onceFunc(10));  // => should log 6
+  // console.log(onceFunc(9001));  // => should log 6
 
 
 // CHALLENGE 5
 function after(count, func) {
 
+  let counter = 0
+
+    return () => {
+    if (counter >= count) func()
+    counter++
+
+      return counter
+  }
 }
 
 // /*** Uncomment these to check your work! ***/
-// const called = function() { console.log('hello') };
-// const afterCalled = after(3, called);
+const called = function() { console.log('hello') };
+const afterCalled = after(3, called);
 // afterCalled(); // => nothing is printed
 // afterCalled(); // => nothing is printed
 // afterCalled(); // => 'hello' is printed
@@ -95,21 +109,31 @@ function after(count, func) {
 
 // CHALLENGE 6
 function delay(func, wait) {
-
+    return setTimeout( ()=> func(), wait)
 }
 
+// delay(()=> console.log('Hey'),3000)
 
 // CHALLENGE 7
 function rollCall(names) {
-
+    let counter = names.length
+    let current = 0
+    return () => {
+        if (current<counter) {
+            console.log(names[current])
+            current++
+        } else {
+            console.log('Everything accounted for')
+        }
+    }
 }
 
 // /*** Uncomment these to check your work! ***/
-// const rollCaller = rollCall(['Victoria', 'Juan', 'Ruth'])
-// rollCaller() // => should log 'Victoria'
-// rollCaller() // => should log 'Juan'
-// rollCaller() // => should log 'Ruth'
-// rollCaller() // => should log 'Everyone accounted for'
+ // const rollCaller = rollCall(['Victoria', 'Juan', 'Ruth'])
+ // rollCaller() // => should log 'Victoria'
+ // rollCaller() // => should log 'Juan'
+ // rollCaller() // => should log 'Ruth'
+ // rollCaller() // => should log 'Everyone accounted for'
 
 
 // CHALLENGE 8
