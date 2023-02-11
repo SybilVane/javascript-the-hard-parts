@@ -220,47 +220,78 @@ function censor() {
 
 // CHALLENGE 13
 function createSecretHolder(secret) {
-
+  let savedValue = secret
+  return {
+    getSecret() {return savedValue},
+    setSecret(secret) {
+      savedValue = secret
+    }
+  }
 }
 
 // /*** Uncomment these to check your work! ***/
 // obj = createSecretHolder(5)
-// obj.getSecret() // => returns 5
+// console.log(obj.getSecret()) // => returns 5
 // obj.setSecret(2)
-// obj.getSecret() // => returns 2
+// console.log(obj.getSecret()) // => returns 2
 
 
 // CHALLENGE 14
 function callTimes() {
-
+  let timesCounter = 1
+  return ()=> {
+    return timesCounter++
+  }
 }
 
 // /*** Uncomment these to check your work! ***/
-// let myNewFunc1 = callTimes();
-// let myNewFunc2 = callTimes();
-// myNewFunc1(); // => 1
-// myNewFunc1(); // => 2
-// myNewFunc2(); // => 1
-// myNewFunc2(); // => 2
+ let myNewFunc1 = callTimes();
+ let myNewFunc2 = callTimes();
+ // console.log(myNewFunc1()); // => 1
+ // console.log(myNewFunc1()); // => 2
+ // console.log(myNewFunc2()); // => 1
+ // console.log(myNewFunc2()); // => 2
 
 
 // CHALLENGE 15
 function roulette(num) {
+  let timesSpun = 1
+  return ()=> {
+    if (timesSpun < num) {
+      timesSpun++
+      return 'spin'
+    }
+    if (timesSpun === num) {
+      timesSpun++
+      return 'win'
+    }
+    if (timesSpun > num) {
+      timesSpun++
+      return 'pick a number to play again'
+    }
 
+    return timesSpun
+  }
 }
 
 // /*** Uncomment these to check your work! ***/
-// const play = roulette(3);
-// console.log(play()); // => should log 'spin'
-// console.log(play()); // => should log 'spin'
-// console.log(play()); // => should log 'win'
-// console.log(play()); // => should log 'pick a number to play again'
-// console.log(play()); // => should log 'pick a number to play again'
+ // const play = roulette(3);
+ // console.log(play()); // => should log 'spin'
+ // console.log(play()); // => should log 'spin'
+ // console.log(play()); // => should log 'win'
+ // console.log(play()); // => should log 'pick a number to play again'
+ // console.log(play()); // => should log 'pick a number to play again'
 
 
 // CHALLENGE 16
 function average() {
-
+  const numArray = [];
+ return (num)=> {
+   if (num) {
+     numArray.push(num)
+   }
+   return numArray.reduce((acc, cur)=> acc + cur / numArray.length, 0)
+ }
 }
 
 // /*** Uncomment these to check your work! ***/
@@ -275,19 +306,22 @@ function average() {
 
 // CHALLENGE 17
 function makeFuncTester(arrOfTests) {
-
+  const arr = arrOfTests
+  return (func)=> {
+    return arrOfTests.reduce((acc, cur)=> func(cur[0]) === cur[1], false)
+  }
 }
 
 // /*** Uncomment these to check your work! ***/
-// const capLastTestCases = [];
-// capLastTestCases.push(['hello', 'hellO']);
-// capLastTestCases.push(['goodbye', 'goodbyE']);
-// capLastTestCases.push(['howdy', 'howdY']);
-// const shouldCapitalizeLast = makeFuncTester(capLastTestCases);
-// const capLastAttempt1 = str => str.toUpperCase();
-// const capLastAttempt2 = str => str.slice(0, -1) + str.slice(-1).toUpperCase();
-// console.log(shouldCapitalizeLast(capLastAttempt1)); // => should log false
-// console.log(shouldCapitalizeLast(capLastAttempt2)); // => should log true
+//  const capLastTestCases = [];
+//  capLastTestCases.push(['hello', 'hellO']);
+//  capLastTestCases.push(['goodbye', 'goodbyE']);
+//  capLastTestCases.push(['howdy', 'howdY']);
+//  const shouldCapitalizeLast = makeFuncTester(capLastTestCases);
+//  const capLastAttempt1 = str => str.toUpperCase();
+//  const capLastAttempt2 = str => str.slice(0, -1) + str.slice(-1).toUpperCase();
+//  shouldCapitalizeLast(capLastAttempt1); // => should log false
+//  shouldCapitalizeLast(capLastAttempt2); // => should log true
 
 
 // CHALLENGE 18
