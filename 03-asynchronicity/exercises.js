@@ -47,7 +47,17 @@ function brokenRecord() {
 
 function limitedRepeat() {
 
+  let counter = 5;
+
+  const logAndCount = ()=> {
+    console.log('hi for now');
+    counter--;
+    if (counter <= 0) clearInterval(intervalID);
+  }
+
+  let intervalID = setInterval(logAndCount, 1000);
 }
+
 // limitedRepeat(); // should log (every second, for 5 seconds): hi for now
 
 
