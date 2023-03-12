@@ -80,9 +80,14 @@ function everyXsecsForYsecs(func, interval, duration) {
 /* CHALLENGE 7 */
 
 function delayCounter(target, wait) {
-
+  return ()=> {
+    let spacingTime = wait
+    for (let i = 1; i <= target; i++) {
+      setTimeout(()=> console.log(i), spacingTime)
+      spacingTime += wait
+    }
+  }
 }
-
 
 // const countLogger = delayCounter(3, 1000)
 // countLogger();
