@@ -1,21 +1,17 @@
 /*** CHALLENGE 1 ***/
 
 function makePerson(name, age) {
-  // add code here
-
-
+  const person = {};
+  person.name = name;
+  person.age = age;
+  return person;
 }
 
 const vicky = makePerson('Vicky', 24);
 
-
 // /********* Uncomment these lines to test your work! *********/
 // console.log(vicky.name); // -> Logs 'Vicky'
 // console.log(vicky.age); // -> Logs 24
-
-
-
-
 
 /****************************************************************
  USING OBJECT.CREATE
@@ -24,43 +20,35 @@ const vicky = makePerson('Vicky', 24);
 /*** CHALLENGE 2 ***/
 
 const personStore = {
-  // add code here
-
-
+  greet: function () {
+    console.log('hello')
+  },
+  introduce: function () {
+    console.log(`Hi, my name is ${this.name}`)
+  }
 };
 
 // /********* Uncomment this line to test your work! *********/
 // personStore.greet(); // -> Logs 'hello'
 
-
-
 /*** CHALLENGE 3 ***/
 
 function personFromPersonStore(name, age) {
-  // add code here
-
-
+  return Object.create({...personStore, name, age})
 }
 
 const sandra = personFromPersonStore('Sandra', 26);
-
 
 // /********* Uncomment these lines to test your work! *********/
 // console.log(sandra.name); // -> Logs 'Sandra'
 // console.log(sandra.age); //-> Logs 26
 // sandra.greet(); //-> Logs 'hello'
 
-
-
 /*** CHALLENGE 4 ***/
 
 // add code here
 
 // sandra.introduce(); // -> Logs 'Hi, my name is Sandra'
-
-
-
-
 
 /****************************************************************
  USING THE 'NEW' KEYWORD
@@ -69,42 +57,36 @@ const sandra = personFromPersonStore('Sandra', 26);
 /*** CHALLENGE 5 ***/
 
 function PersonConstructor() {
-  // add code here
-
-
+  this.greet = () => console.log('hello')
 }
-
 
 // /********* Uncomment this line to test your work! *********/
 const simon = new PersonConstructor;
+
 // simon.greet(); // -> Logs 'hello'
-
-
 
 /*** CHALLENGE 6 ***/
 
 function personFromConstructor(name, age) {
-  // add code here
-
-
+  const person = new PersonConstructor();
+  person.name = name;
+  person.age = age;
+  return person
 }
 
 const mike = personFromConstructor('Mike', 30);
-
 
 // /********* Uncomment these lines to test your work! *********/
 // console.log(mike.name); // -> Logs 'Mike'
 // console.log(mike.age); //-> Logs 30
 // mike.greet(); //-> Logs 'hello'
 
-
-
 /*** CHALLENGE 7 ***/
-// add code here
+PersonConstructor.prototype.introduce = function () {
+  console.log(`Hi, my name is ${this.name}`)
+}
 
-
-// mike.introduce(); // -> Logs 'Hi, my name is Mike'
-
+mike.introduce(); // -> Logs 'Hi, my name is Mike'
 
 /****************************************************************
  USING ES6 CLASSES
@@ -116,38 +98,31 @@ class PersonClass {
   constructor() {
     // add code here
 
-
   }
 
   // add code here
 
 }
 
-
 // /********* Uncomment this line to test your work! *********/
 const george = new PersonClass;
 // george.greet(); // -> Logs 'hello'
 
-
-
 /*** CHALLENGE 9 ***/
 
 // add code here
-
 
 // /********* Uncomment these lines to test your work! *********/
 // const thai = new DeveloperClass('Thai', 32);
 // console.log(thai.name); // -> Logs 'Thai'
 // thai.introduce(); //-> Logs 'Hello World, my name is Thai'
 
-
-
 /****************************************************************
  EXTENSION: SUBCLASSING
  ****************************************************************/
 
 const userFunctionStore = {
-  sayType: function() {
+  sayType: function () {
     console.log("I am a " + this.type);
   }
 }
@@ -181,7 +156,6 @@ const adminFromFactory = adminFactory("Eva", 5);
 // adminFromFactory.sayType() // -> Logs "I am a Admin"
 // adminFromFactory.sharePublicMessage() // -> Logs "Welcome users!"
 
-
 /****************************************************************
  EXTENSION: MIXINS
  ****************************************************************/
@@ -190,6 +164,7 @@ class Dog {
   constructor() {
     this.legs = 4;
   }
+
   speak() {
     console.log('Woof!');
   }
@@ -197,7 +172,9 @@ class Dog {
 
 const robotMixin = {
   skin: 'metal',
-  speak: function() { console.log(`I have ${this.legs} legs and am made of ${this.skin}`) },
+  speak: function () {
+    console.log(`I have ${this.legs} legs and am made of ${this.skin}`)
+  },
 }
 
 let robotFido = new Dog();
