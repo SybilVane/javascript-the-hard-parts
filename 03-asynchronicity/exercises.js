@@ -97,10 +97,10 @@ function delayCounter(target, wait) {
 
 /* CHALLENGE 8 */
 
-function promised (val) {
-  // ADD CODE HERE
+function promised(value) {
+  return new Promise(resolve =>
+  setTimeout(()=> resolve(value), 2000))
 }
-
 
 // const createPromise = promised('wait for it...');
 // createPromise.then((val) => console.log(val));
@@ -110,10 +110,27 @@ function promised (val) {
 
 class SecondClock {
   constructor(cb) {
-    // ADD CODE HERE
+    this.cb = cb;
+    this.seconds = 0;
+    this.timerId = null;
   }
-  // ADD METHODS HERE
+
+  start() {
+    this.timerId = setInterval(() => {
+      this.seconds++;
+      if (this.seconds === 60) {
+        this.seconds = 1;
+      }
+      this.cb(this.seconds);
+    }, 1000);
+  }
+
+  reset() {
+    clearInterval(this.timerId);
+    this.seconds = 0;
+  }
 }
+
 
 
 // const clock = new SecondClock((val) => { console.log(val) });
