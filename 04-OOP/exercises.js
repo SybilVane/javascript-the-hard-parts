@@ -22,8 +22,7 @@ const vicky = makePerson('Vicky', 24);
 const personStore = {
   greet: function () {
     console.log('hello')
-  },
-  introduce: function () {
+  }, introduce: function () {
     console.log(`Hi, my name is ${this.name}`)
   }
 };
@@ -86,7 +85,7 @@ PersonConstructor.prototype.introduce = function () {
   console.log(`Hi, my name is ${this.name}`)
 }
 
-mike.introduce(); // -> Logs 'Hi, my name is Mike'
+// mike.introduce(); // -> Logs 'Hi, my name is Mike'
 
 /****************************************************************
  USING ES6 CLASSES
@@ -95,25 +94,36 @@ mike.introduce(); // -> Logs 'Hi, my name is Mike'
 /*** CHALLENGE 8 ***/
 
 class PersonClass {
-  constructor() {
-    // add code here
 
+  constructor(name) {
+    this.name = name
   }
 
-  // add code here
-
+  greet() {
+    console.log('hello')
+  }
 }
 
 // /********* Uncomment this line to test your work! *********/
 const george = new PersonClass;
+
 // george.greet(); // -> Logs 'hello'
 
 /*** CHALLENGE 9 ***/
 
-// add code here
+class DeveloperClass extends PersonClass {
+  constructor(name, age) {
+    super(name);
+    this.age = age;
+  }
+
+  introduce() {
+    console.log(`Hello World, my name is ${this.name}`)
+  }
+}
 
 // /********* Uncomment these lines to test your work! *********/
-// const thai = new DeveloperClass('Thai', 32);
+const thai = new DeveloperClass('Thai', 32);
 // console.log(thai.name); // -> Logs 'Thai'
 // thai.introduce(); //-> Logs 'Hello World, my name is Thai'
 
@@ -137,18 +147,18 @@ function userFactory(name, score) {
 
 /*** CHALLENGE 10 ***/
 
-const adminFunctionStore = {
-  // add code here
-}
+const adminFunctionStore = {...userFunctionStore}
 
 /*** CHALLENGE 11, 12, 13 ***/
 
 function adminFactory(name, score) {
-  // add code here
+  const admin = new userFactory(name, score);
+  admin.type = 'Admin'
+  return admin;
 }
 
 /*** CHALLENGE 14 ***/
-/* Put code here for a method called sharePublicMessage*/
+userFunctionStore.sharePublicMessage = () => console.log('Welcome users!');
 
 const adminFromFactory = adminFactory("Eva", 5);
 
@@ -171,15 +181,13 @@ class Dog {
 }
 
 const robotMixin = {
-  skin: 'metal',
-  speak: function () {
+  skin: 'metal', speak: function () {
     console.log(`I have ${this.legs} legs and am made of ${this.skin}`)
   },
 }
 
 let robotFido = new Dog();
 
-// robotFido = /* Put code here to give Fido robot skills */;
-
+robotFido = {...robotFido, ...robotMixin}
 // /********* Uncomment to test your work! *********/
 // robotFido.speak() // -> Logs "I am made of metal"
