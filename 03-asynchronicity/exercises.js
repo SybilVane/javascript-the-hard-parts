@@ -12,15 +12,13 @@ function testMe() {
 // After thinking it through, uncomment the following line to check your guess!
 // testMe(); // what order should these log out? Howdy or Partnah first?
 
-
 /* CHALLENGE 2 */
 
 function delayedGreet() {
-  setTimeout(()=> console.log('welcome'), 3000);
+  setTimeout(() => console.log('welcome'), 3000);
 }
 
 // delayedGreet(); // should log (after 3 seconds): welcome
-
 
 /* CHALLENGE 3 */
 
@@ -33,15 +31,13 @@ function helloGoodbye() {
 
 // helloGoodbye(); // should log: hello // should also log (after 3 seconds): good bye
 
-
 /* CHALLENGE 4 */
 
 function brokenRecord() {
-  setInterval(()=> console.log('Hi again'), 1000)
+  setInterval(() => console.log('Hi again'), 1000)
 }
 
 // brokenRecord(); // should log (every second): hi again
-
 
 /* CHALLENGE 5 */
 
@@ -49,7 +45,7 @@ function limitedRepeat() {
 
   let counter = 5;
 
-  const logAndCount = ()=> {
+  const logAndCount = () => {
     console.log('hi for now');
     counter--;
     if (counter <= 0) clearInterval(intervalID);
@@ -60,7 +56,6 @@ function limitedRepeat() {
 
 // limitedRepeat(); // should log (every second, for 5 seconds): hi for now
 
-
 /* CHALLENGE 6 */
 
 function everyXsecsForYsecs(func, interval, duration) {
@@ -70,20 +65,19 @@ function everyXsecsForYsecs(func, interval, duration) {
 
   let intervalID = setInterval(func, intervalInSecs)
 
-  setTimeout(()=> clearInterval(intervalID), durationInSecs)
+  setTimeout(() => clearInterval(intervalID), durationInSecs)
 }
 
- // function theEnd() {console.log('This is the end!');}
- // everyXsecsForYsecs(theEnd, 2, 20); // should invoke theEnd function every 2 seconds, for 20 seconds): This is the end!
-
+// function theEnd() {console.log('This is the end!');}
+// everyXsecsForYsecs(theEnd, 2, 20); // should invoke theEnd function every 2 seconds, for 20 seconds): This is the end!
 
 /* CHALLENGE 7 */
 
 function delayCounter(target, wait) {
-  return ()=> {
+  return () => {
     let spacingTime = wait
     for (let i = 1; i <= target; i++) {
-      setTimeout(()=> console.log(i), spacingTime)
+      setTimeout(() => console.log(i), spacingTime)
       spacingTime += wait
     }
   }
@@ -99,7 +93,7 @@ function delayCounter(target, wait) {
 
 function promised(value) {
   return new Promise(resolve =>
-  setTimeout(()=> resolve(value), 2000))
+    setTimeout(() => resolve(value), 2000))
 }
 
 // const createPromise = promised('wait for it...');
@@ -131,8 +125,6 @@ class SecondClock {
   }
 }
 
-
-
 // const clock = new SecondClock((val) => { console.log(val) });
 // console.log("Started Clock.");
 // clock.start();
@@ -146,7 +138,6 @@ class SecondClock {
 function debounce(callback, interval) {
   // ADD CODE HERE
 }
-
 
 // function giveHi() { return 'hi'; }
 // const giveHiSometimes = debounce(giveHi, 3000);

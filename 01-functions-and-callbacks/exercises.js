@@ -78,7 +78,7 @@ function intersection(arrays) {
     return [];
   }
 
-  return arrays.reduce((acc, cur) => cur.filter((el)=> acc.includes(el)));
+  return arrays.reduce((acc, cur) => cur.filter((el) => acc.includes(el)));
 }
 
 //console.log('-> Challenge 7 ', intersection([[5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20]]));
@@ -98,9 +98,9 @@ function union(arrays) {
 // Challenge 9
 function objOfMatches(array1, array2, callback) {
   const newObj = {}
-  array1.map((el1)=> array2.map((el2)=> {
-    if(callback(el1) === el2) newObj[el1] = el2
-  }) )
+  array1.map((el1) => array2.map((el2) => {
+    if (callback(el1) === el2) newObj[el1] = el2
+  }))
   return newObj
 }
 
@@ -111,7 +111,7 @@ function objOfMatches(array1, array2, callback) {
 // Challenge 10
 function multiMap(arrVals, arrCallbacks) {
   const newObj = {}
-  arrVals.map((elVal)=> newObj[elVal] = arrCallbacks.map((elCb)=> elCb(elVal)))
+  arrVals.map((elVal) => newObj[elVal] = arrCallbacks.map((elCb) => elCb(elVal)))
   return newObj
 }
 
@@ -122,9 +122,9 @@ function multiMap(arrVals, arrCallbacks) {
 function objectFilter(obj, callback) {
 
   const newObj = {}
-  Object.entries(obj).map(([key, val])=> {
-    if(val === callback(key)) newObj[key] = val
-  } )
+  Object.entries(obj).map(([key, val]) => {
+    if (val === callback(key)) newObj[key] = val
+  })
   return newObj
 }
 
@@ -134,7 +134,7 @@ function objectFilter(obj, callback) {
 
 // Challenge 12
 function majority(array, callback) {
-  return array.map(el=> callback(el)).filter(el=> !!el).length > Math.floor(array.length / 2)
+  return array.map(el => callback(el)).filter(el => !!el).length > Math.floor(array.length / 2)
 }
 
 // const isArrayOdd = function(num) { return num % 2 === 1; };
@@ -144,7 +144,7 @@ function majority(array, callback) {
 // Challenge 13
 function prioritize(array, callback) {
 
-  return array.filter(el=> callback(el)).concat(array.filter(el=> !callback(el)))
+  return array.filter(el => callback(el)).concat(array.filter(el => !callback(el)))
 
 }
 
@@ -154,7 +154,7 @@ function prioritize(array, callback) {
 // Challenge 14
 function countBy(array, callback) {
   const countObj = {}
-  array.map(el=> {
+  array.map(el => {
     const elReturnedByCb = callback(el)
     countObj.hasOwnProperty(elReturnedByCb) ? countObj[elReturnedByCb] += 1 : countObj[elReturnedByCb] = 1
   })
@@ -170,7 +170,7 @@ function countBy(array, callback) {
 // Challenge 15
 function groupBy(array, callback) {
   const groupingObj = {}
-  array.map(el=> {
+  array.map(el => {
     const elReturnedByCb = callback(el)
     groupingObj.hasOwnProperty(elReturnedByCb) ? groupingObj[elReturnedByCb].push(el) : groupingObj[elReturnedByCb] = [el]
   })
@@ -190,13 +190,13 @@ function goodKeys(obj, callback) {
   return goodArray
 }
 
- // const sunny = { mac: 'priest', dennis: 'calculating', charlie: 'birdlaw', dee: 'bird', frank: 'warthog' };
- // const startsWithBird = function(str) { return str.slice(0, 4).toLowerCase() === 'bird'; };
- // console.log('-> Challenge 16 ', goodKeys(sunny, startsWithBird)); // should log: ['charlie', 'dee']
+// const sunny = { mac: 'priest', dennis: 'calculating', charlie: 'birdlaw', dee: 'bird', frank: 'warthog' };
+// const startsWithBird = function(str) { return str.slice(0, 4).toLowerCase() === 'bird'; };
+// console.log('-> Challenge 16 ', goodKeys(sunny, startsWithBird)); // should log: ['charlie', 'dee']
 
 // Challenge 17
 function commutative(func1, func2, value) {
- return func2(func1(value)) === func1(func2(value))
+  return func2(func1(value)) === func1(func2(value))
 }
 
 // const multBy3 = n => n * 3;
@@ -210,7 +210,7 @@ function commutative(func1, func2, value) {
 function objFilter(obj, callback) {
 
   const newObj = {}
-  Object.entries(obj).map(([key, value])=> {
+  Object.entries(obj).map(([key, value]) => {
     if (value === callback(key)) newObj[key] = value
   })
   return newObj
@@ -227,7 +227,7 @@ function objFilter(obj, callback) {
 function rating(arrOfFuncs, value) {
   let numberOfTrue = 0
 
-  arrOfFuncs.map(func=> {
+  arrOfFuncs.map(func => {
     if (func(value)) numberOfTrue += 1
   })
 
@@ -255,23 +255,23 @@ function pipe(arrOfFuncs, value) {
 
 // Challenge 21
 function highestFunc(objOfFuncs, subject) {
-  const arrayOfResults = Object.entries(objOfFuncs).map(([key,value])=> [key, value(subject)])
+  const arrayOfResults = Object.entries(objOfFuncs).map(([key, value]) => [key, value(subject)])
   const newObj = {}
-  arrayOfResults.forEach(el=> newObj[el[0]] = el[1])
-  const highestResult = Object.values(newObj).reduce((acc,cur)=> acc > cur ? acc : cur)
-  const highestKeyValueArray = Object.entries(newObj).filter(([key, value])=> {
+  arrayOfResults.forEach(el => newObj[el[0]] = el[1])
+  const highestResult = Object.values(newObj).reduce((acc, cur) => acc > cur ? acc : cur)
+  const highestKeyValueArray = Object.entries(newObj).filter(([key, value]) => {
     if (value === highestResult) return key
   })
   return highestKeyValueArray[0][0]
 }
 
- // const groupOfFuncs = {};
- // groupOfFuncs.double = n => n * 2;
- // groupOfFuncs.addTen = n => n + 10;
- // groupOfFuncs.inverse = n => n * -1;
- // console.log('-> Challenge 21 ', highestFunc(groupOfFuncs, 5)); // should log: 'addTen'
- // console.log('-> Challenge 21 ', highestFunc(groupOfFuncs, 11)); //  should log: 'double'
- // console.log('-> Challenge 21 ', highestFunc(groupOfFuncs, -20)); // should log: 'inverse'
+// const groupOfFuncs = {};
+// groupOfFuncs.double = n => n * 2;
+// groupOfFuncs.addTen = n => n + 10;
+// groupOfFuncs.inverse = n => n * -1;
+// console.log('-> Challenge 21 ', highestFunc(groupOfFuncs, 5)); // should log: 'addTen'
+// console.log('-> Challenge 21 ', highestFunc(groupOfFuncs, 11)); //  should log: 'double'
+// console.log('-> Challenge 21 ', highestFunc(groupOfFuncs, -20)); // should log: 'inverse'
 
 // Challenge 22
 function combineOperations(startVal, arrOfFuncs) {
@@ -281,15 +281,19 @@ function combineOperations(startVal, arrOfFuncs) {
 function add100(num) {
   return num + 100;
 }
+
 function addTen(num) {
   return num + 10;
 }
+
 function divByFive(num) {
   return num / 5;
 }
+
 function multiplyByThree(num) {
   return num * 3;
 }
+
 function multiplyByFive(num) {
   return num * 5;
 }
@@ -320,7 +324,7 @@ function isOdd(num) {
 // Challenge 24
 function myForEach(array, callback) {
 
-  for(let i = 0; i<array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     callback(array[i])
   }
 
@@ -332,6 +336,6 @@ function addToSum(num) {
   sum += num;
 }
 
- // const nums = [1, 2, 3];
- // myForEach(nums, addToSum);
- // console.log('-> Challenge 24 ', sum); // Should output 6
+// const nums = [1, 2, 3];
+// myForEach(nums, addToSum);
+// console.log('-> Challenge 24 ', sum); // Should output 6
